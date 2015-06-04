@@ -3,11 +3,17 @@ package test;
 import static org.junit.Assert.*;
 import main.Account;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class AccountTest {
 
   Account account;
+  
+  @Before
+  public void setup() {
+	account = new Account(10000);
+  }
   
   /**
    * 계좌 정상 생성 여부 테스트
@@ -15,7 +21,7 @@ public class AccountTest {
    */
   @Test
   public void testAccount() {
-    account = new Account(10000);
+    setup();
   }
 
   /**
@@ -24,7 +30,7 @@ public class AccountTest {
    */
   @Test
   public void testGetBalance() throws Exception {
-    account = new Account(10000);
+    setup();
     assertEquals("10000원으로 계좌 생성 후 잔고 조회", 10000, account.getBalance());
     
     account = new Account(1000);
@@ -36,14 +42,14 @@ public class AccountTest {
    */
   @Test
   public void testDeposit() throws Exception {
-    account = new Account(10000);
+    setup();
     account.deposit(1000);
     assertEquals("계좌 생성 시 10000원 입금 후, 1000원 입금", 11000, account.getBalance());
   }
   
   @Test
   public void testWithdraw() throws Exception {
-    account = new Account(10000);
+    setup();
     account.withdraw(1000);
     assertEquals("계좌 생성 시 10000원 입금 후, 1000원 출금", 9000, account.getBalance());
   }
