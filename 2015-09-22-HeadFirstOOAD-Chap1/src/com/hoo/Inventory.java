@@ -35,34 +35,35 @@ public class Inventory {
     return null;
   }
 
-  public List<Guitar> search(Guitar searchGuitar) {
+  public List<Guitar> search(GuitarSpec searchGuitarSpec) {
     List<Guitar> matchingGuitars = new LinkedList<Guitar>();
     for (Iterator<Guitar> i = guitars.iterator(); i.hasNext(); ) {
       Guitar guitar = i.next();
+      GuitarSpec guitarSpec = guitar.getGuitarSpec();
 
-      Builder builder = searchGuitar.getBuilder();
-      String model = searchGuitar.getModel();
-      Type type = searchGuitar.getType();
-      Wood backWood = searchGuitar.getBackWood();
-      Wood topWood = searchGuitar.getTopWood();
+      Builder builder = searchGuitarSpec.getBuilder();
+      String model = searchGuitarSpec.getModel();
+      Type type = searchGuitarSpec.getType();
+      Wood backWood = searchGuitarSpec.getBackWood();
+      Wood topWood = searchGuitarSpec.getTopWood();
 
-      if ((builder != null) && (!builder.equals("") && (!builder.equals(guitar.getBuilder())))) {
+      if ((builder != null) && (!builder.equals("") && (!builder.equals(guitarSpec.getBuilder())))) {
         continue;
       }
 
-      if ((model != null) && (!model.equals("") && (!model.equals(guitar.getModel())))) {
+      if ((model != null) && (!model.equals("") && (!model.equals(guitarSpec.getModel())))) {
         continue;
       }
 
-      if ((type != null) && (!type.equals("") && (!type.equals(guitar.getType())))) {
+      if ((type != null) && (!type.equals("") && (!type.equals(guitarSpec.getType())))) {
         continue;
       }
 
-      if ((backWood != null) && (!backWood.equals("") && (!backWood.equals(guitar.getBackWood())))) {
+      if ((backWood != null) && (!backWood.equals("") && (!backWood.equals(guitarSpec.getBackWood())))) {
         continue;
       }
 
-      if ((topWood != null) && (!topWood.equals("") && (!topWood.equals(guitar.getTopWood())))) {
+      if ((topWood != null) && (!topWood.equals("") && (!topWood.equals(guitarSpec.getTopWood())))) {
         continue;
       }
       matchingGuitars.add(guitar);
