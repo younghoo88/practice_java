@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Inventory {
 
-  private List guitars;
+  private List<Guitar> guitars;
 
   public Inventory() {
     this.guitars = new LinkedList<Guitar>();
@@ -25,9 +25,9 @@ public class Inventory {
     guitars.add(guitar);
   }
 
+  // serialNumber는 고유한 값이므로 하나의 guitar객체만을 반환한다.
   public Guitar getGuitar(String serialNumber) {
-    for (Iterator<Guitar> i = guitars.iterator(); i.hasNext(); ) {
-      Guitar guitar = (Guitar) i.next();
+    for (Guitar guitar : guitars) {
       if (guitar.getSerialNumber().equals(serialNumber)) {
         return guitar;
       }
@@ -37,8 +37,8 @@ public class Inventory {
 
   public List<Guitar> search(GuitarSpec searchGuitarSpec) {
     List<Guitar> matchingGuitars = new LinkedList<Guitar>();
-    for (Iterator<Guitar> i = guitars.iterator(); i.hasNext(); ) {
-      Guitar guitar = i.next();
+
+    for (Guitar guitar : guitars) {
       GuitarSpec guitarSpec = guitar.getGuitarSpec();
 
       Builder builder = searchGuitarSpec.getBuilder();

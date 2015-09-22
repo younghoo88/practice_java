@@ -12,11 +12,9 @@ public class Main {
     GuitarSpec whatHooLikes = new GuitarSpec(Builder.GIBSON, "2015Version", Type.ACOUSTIC,
         Wood.INDIAN_ROSEWOOD, Wood.ADIRONDACK);
 
-
     List<Guitar> matchingGuitars = inventory.search(whatHooLikes);
     if (!matchingGuitars.isEmpty()) {
-      for (Iterator<Guitar> i = matchingGuitars.iterator(); i.hasNext(); ) {
-        Guitar guitar = i.next();
+      for (Guitar guitar : matchingGuitars) {
         GuitarSpec guitarSpec = guitar.getGuitarSpec();
         System.out.println("Younghoo, you might like these guitars");
         System.out.println("Builder : " + guitarSpec.getBuilder());
