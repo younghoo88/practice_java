@@ -8,13 +8,18 @@ package com.hoo;
  */
 public class Guitar {
 
-  private String serialNumber, builder, model, type, backWood, topWood;
+  private String serialNumber, model;
   private double price;
+  private Builder builder;
+  private Type type;
+  private Wood backWood;
+  private Wood topWood;
 
-  public Guitar(String serialNumber, double price, String builder,
-                String type, String model, String backWood, String topWood) {
+  public Guitar(String serialNumber, double price, Builder builder,
+                String model, Type type, Wood backWood, Wood topWood) {
     this.serialNumber = serialNumber;
     this.builder = builder;
+    this.type = type;
     this.model = model;
     this.backWood = backWood;
     this.topWood = topWood;
@@ -25,7 +30,7 @@ public class Guitar {
     return serialNumber;
   }
 
-  public String getBuilder() {
+  public Builder getBuilder() {
     return builder;
   }
 
@@ -33,15 +38,15 @@ public class Guitar {
     return model;
   }
 
-  public String getType() {
+  public Type getType() {
     return type;
   }
 
-  public String getBackWood() {
+  public Wood getBackWood() {
     return backWood;
   }
 
-  public String getTopWood() {
+  public Wood getTopWood() {
     return topWood;
   }
 

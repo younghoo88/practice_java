@@ -1,10 +1,33 @@
 package com.hoo;
 
+import java.util.List;
+
 public class Main {
 
   public static void main(String[] args) {
+    // 기타 재고 목록 셋업(초기화)
+    Inventory inventory = new Inventory();
+    initializeInventory(inventory);
+    Guitar whatHooLikes = new Guitar("12345", 50000, Builder.GIBSON, "2015Version", Type.ACOUSTIC,
+        Wood.INDIAN_ROSEWOOD, Wood.ADIRONDACK);
 
 
+    List<Guitar> matchingGuitars = inventory.search(whatHooLikes);
+    if (!matchingGuitars.isEmpty()) {
+      System.out.println("Younghoo, you might like these guitars");
 
+
+    } else {
+      System.out.println("Sorry, Younghoo, we have nothing for you");
+    }
+  }
+
+  /**
+   * Inventory에 Guitar를 추가한다.
+   * @param inventory
+   */
+  private static void initializeInventory(Inventory inventory) {
+    inventory.addGuitar("12345", 50000, Builder.GIBSON, "2015Version", Type.ACOUSTIC,
+        Wood.INDIAN_ROSEWOOD, Wood.ADIRONDACK);
   }
 }
