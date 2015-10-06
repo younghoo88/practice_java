@@ -17,7 +17,17 @@ public class DogDoorSimulator {
 
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
+
+    try {
+      Thread.currentThread().sleep(10000);
+    } catch (InterruptedException e) {
+
+    }
+
+    System.out.println("... but he's stuck inside!");
+    System.out.println("\nFido starts barking");
+    System.out.println("... so Todd grabs the remote control");
+    remote.pressButton();
     System.out.println("\nFido's back inside...");
-    // main thread 종료, timer 설정된 thread 실행 후, 5초 후 종료
   }
 }
