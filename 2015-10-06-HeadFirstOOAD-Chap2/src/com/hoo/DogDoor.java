@@ -1,5 +1,7 @@
 package com.hoo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +14,7 @@ import java.util.TimerTask;
 public class DogDoor {
 
   private boolean open;
-  private Bark allowedBark;
+  private List<Bark> allowedBark = new ArrayList<Bark>();
 
   public DogDoor() {
     this.open = false;
@@ -41,17 +43,18 @@ public class DogDoor {
     return open;
   }
 
-  public void setAllowedBark(Bark bark) {
-    this.allowedBark = bark;
-  }
-
-  public Bark getAllowedBark() {
-    if (allowedBark != null) {
+  public List<Bark> getAllowedBark() {
+    if (!allowedBark.isEmpty()) {
       return allowedBark;
     } else {
-      System.out.println("allowedBark has not been set.");
+      System.out.println("allowedBark list has not been set.");
       return null;
     }
+  }
+
+  public void addAllowedBark(Bark bark) {
+    System.out.println("allowedBark is added in list.");
+    allowedBark.add(bark);
   }
 
 }

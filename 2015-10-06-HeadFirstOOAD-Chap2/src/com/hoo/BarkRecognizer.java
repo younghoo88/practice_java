@@ -1,5 +1,7 @@
 package com.hoo;
 
+import java.util.Iterator;
+
 /**
  * 2015-10-06-HeadFirstOOAD-Chap2
  * com.hoo
@@ -17,11 +19,14 @@ public class BarkRecognizer {
 
   public void recognize(Bark bark) {
     System.out.println("BarkRecognizer : Heard a '" + bark.getSound() + "'");
-    if (door.getAllowedBark().equals(bark)) {
-      door.open();
-    } else {
-      System.out.println("This dog is not allowed.");
+    Iterator<Bark> iterator = door.getAllowedBark().iterator();
+    while (iterator.hasNext()) {
+      if (iterator.next().equals(bark)) {
+        door.open();
+        return;
+      }
     }
+    System.out.println("This dog is not allowed.");
   }
 
 }
