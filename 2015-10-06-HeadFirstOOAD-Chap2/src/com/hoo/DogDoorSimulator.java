@@ -14,7 +14,8 @@ public class DogDoorSimulator {
     BarkRecognizer recognizer = new BarkRecognizer(door);
 
     System.out.println("Fido barks to go outside...");
-    recognizer.recognize("Woof");
+    Bark fidoBark = new Bark("Woof");
+    recognizer.recognize(fidoBark);
 
     System.out.println("\nFido has gone outside...");
     System.out.println("\nFido's all done...");
@@ -27,7 +28,7 @@ public class DogDoorSimulator {
 
     System.out.println("... but he's stuck inside!");
     System.out.println("\nFido starts barking");
-    recognizer.recognize("Woof");
+    recognizer.recognize(fidoBark);
     System.out.println("\nFido's back inside...");
   }
 }
