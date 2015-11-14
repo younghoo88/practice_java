@@ -1,6 +1,8 @@
 package com.hoo;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Stack;
 
 /**
  * 2015-11-05-Sacheonsung
@@ -23,7 +25,7 @@ public class Game {
       {"0", "!", "@", "#", "0"},
       {"0", "@", "#", "%", "0"},
       {"0", "!", "$", "$", "0"},
-      {"0", "%", "0", "0", "0"}
+      {"0", "%", "0", "*", "0"}
 
   };
 
@@ -31,6 +33,11 @@ public class Game {
   private final int[] dy = {-1, 0, 1, 0};
 
   public boolean findPath(String[][] map, int srcX, int srcY, int dstX, int dstY) {
+
+    if (map[srcX][srcY].equals("0")) {
+      Log.i("문자가 존재하지 않습니다.");
+      return false;
+    }
 
     if ((srcX == dstX) && (srcY == dstY)) {
       Log.i("같은 좌표입니다.");
@@ -45,20 +52,34 @@ public class Game {
     // 방문했는지 안했는지를 기록하는 boolean형 이차원 배열
     boolean[][] visited = new boolean[5][5];
 
+    // visited[][] 배열을 false값으로 초기화해준다.(처음엔 모든 곳에 방문을 안한 상태이므로)
     for (int i = 0; i < visited.length; i++) {
-      Arrays.fill(visited[i], false); // init array to false
+      Arrays.fill(visited[i], false);
     }
 
     // 찾고자 하는 모양
     String target = map[srcX][srcY];
-
+    // 커브 판별을 위한 배열(왼쪽, 위쪽, 오른쪽, 아래쪽)
+    // 한번 움직일 때마다 배열값중 하나의 값이 증가하게 된다.
+    // 2번의 커브 이내라는 말은 이 배열값 중 하나라도 0값인 경우를 의미한다.
+    // 그림을 그려보면 이해가 쉽다!
     int[] direction = {0, 0, 0, 0};
+    // 지나온 경로를 담는 스택
+    Stack<Integer> stack = new Stack<Integer>();
 
     // 실제 탐색은 go()메소드에서 진행된다.
-    return go(map, visited, target, srcX, srcY, dstX, dstY, direction);
+    if (go(map, visited, target, srcX, srcY, dstX, dstY, direction, stack)) {
+      map[srcX][srcY] = "0";
+      map[dstX][dstY] = "0";
+      showMap();
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  private boolean go(String[][] map, boolean[][] visited, String target, int x, int y, int dstX, int dstY, int[] direction) {
+  private boolean go(String[][] map, boolean[][] visited, String target,
+                     int x, int y, int dstX, int dstY, int[] direction, Stack<Integer> stack) {
 
     boolean isFind = true;
 
@@ -79,13 +100,21 @@ public class Game {
     }
 
     if ((x == dstX && y == dstY) && !visited[x][y] && map[x][y].equals(target)) {
-      Log.i("( " + x + " , " + y + " ) ");
-      Log.i("Target을 찾았습니다.");
+      Log.i("( " + x + " , " + y + " )");
+      Log.i("Target \'" + target + "\'을 찾았습니다.");
       for (int i : direction) {
         if (i == 0) {
+          Log.i("2번의 커브 이내에 연결");
+          Log.i("이동 경로");
+          Iterator<Integer> itr = stack.iterator();
+          while (itr.hasNext()) {
+            System.out.print(POSITION[itr.next()] + " -> ");
+          }
+          System.out.println();
           return true;
         }
       }
+      Log.i("커브 횟수 초과");
       return false;
     }
 
@@ -95,11 +124,13 @@ public class Game {
     for (int i = 0; i < 4; i++) {
       // Log.i(POSITION[i]);
       direction[i]++;
-      isFind = go(map, visited, target, x + dx[i], y + dy[i], dstX, dstY, direction);
+      stack.push(i);
+      isFind = go(map, visited, target, x + dx[i], y + dy[i], dstX, dstY, direction, stack);
       if (isFind) {
         return isFind;
       }
       direction[i]--;
+      stack.pop();
     }
     visited[x][y] = false;
     return isFind;
@@ -115,8 +146,6 @@ public class Game {
       }
       System.out.println();
     }
-
-    System.out.println();
   }
 
   public String[][] getMap() {
